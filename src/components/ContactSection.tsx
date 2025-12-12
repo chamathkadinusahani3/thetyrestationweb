@@ -17,7 +17,7 @@ export function ContactSection() {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   // ------------------------------
-  // ⭐ AUTO-FILL TYRE NAME HERE
+
   // ------------------------------
   useEffect(() => {
     const params = new URLSearchParams(location.search);
