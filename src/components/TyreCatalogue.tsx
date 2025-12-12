@@ -35,7 +35,7 @@ export function TyreCatalogue() {
     size: "",
     category: "PASSENGER CAR",
     image: "https://image.makewebeasy.net/makeweb/m_1920x0/JCbWKd3P2/PassengerCar/banner_product_FALCO_S88_img_2x.png?v=202405291424",
-    link: "",
+    link: "https://kinto-tyres.lk/product/falco-s88/",
   },
   {
     id: 3,

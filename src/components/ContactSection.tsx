@@ -40,7 +40,7 @@ export function ContactSection() {
 
     try {
       const web3formsData = {
-        access_key: '1d7c8871-cbf3-4e99-9119-756fba0d5a3f',
+        access_key: '7445c1a8-b762-4d39-a84f-0f56d58f1c65',
         name: formData.name,
         email: formData.email,  // Use form email
         phone: formData.contact,
