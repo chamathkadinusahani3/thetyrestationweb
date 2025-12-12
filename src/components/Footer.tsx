@@ -102,10 +102,11 @@ export function Footer() {
             <ul className="space-y-3">
               {[
                 { name: 'Home', path: '/' },
-                { name: 'Premium Tyres', path: '/tyres' },
+                { name: 'Products', path: '/tyres' },
                 { name: 'Services', path: '/services' },
                 { name: 'Brands', path: '/brands' },
                 { name: 'Events', path: '/events' },
+                { name: 'About Us', path: '/about' },
                 { name: 'Contact Us', path: '/contact' }
               ].map(link => (
                 <li key={link.path}>
@@ -135,13 +136,14 @@ export function Footer() {
               <span className="ml-3 flex-1 h-px bg-gradient-to-r from-yellow-400/50 to-transparent" />
             </h4>
             <ul className="space-y-3">
-              {[
-                'Wheel Alignment',
-                'Wheel Balancing',
-                'Tyre Installation',
-                'Puncture Repair',
-                'Tyre Consultation'
+             {[
+                'Tyre Import',
+                'Tyre Export',
+                'Islandwide Distribution',
+                'Wholesale Tyre Supply',
+                'Corporate & Fleet Solutions'
               ].map(service => (
+
                 <li key={service}>
                   <motion.div
                     whileHover={{ x: 4 }}
@@ -178,7 +180,7 @@ export function Footer() {
                     <p className="font-semibold text-white group-hover:text-yellow-400">
                       24/7 Hotline
                     </p>
-                    <p>+94 71 388 5885 / +94 76 599 3823</p>
+                    <p>+94 71 388 5885</p>
                   </div>
                 </motion.a>
               </li>

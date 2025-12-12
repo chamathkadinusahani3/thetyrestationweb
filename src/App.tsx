@@ -10,24 +10,34 @@ import { BrandsPage } from './pages/BrandsPage';
 import { EventsPage } from './pages/EventsPage';
 import { ContactPage } from './pages/ContactPage';
 import ScrollToTop from "./components/ScrollToTop";
+import { AboutPage } from "./pages/AboutPage";
+import DealerForm from "./components/DealerForm";
+
+import DealerMapPage from "./pages/DealerMapPage";
+
 
 export function App() {
-  return <HashRouter>
-    <ScrollToTop />
+  return (
+    <HashRouter>
+      <ScrollToTop />
       <div className="min-h-screen bg-black flex flex-col">
         <Navbar />
         <main className="flex-1">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/tyres" element={<TyresPage />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/brands" element={<BrandsPage />} />
             <Route path="/events" element={<EventsPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/dealer" element={<DealerForm />} />
+            <Route path="/dealer-map" element={<DealerMapPage />} />
           </Routes>
         </main>
         <Footer />
         <WhatsAppButton />
       </div>
-    </HashRouter>;
+    </HashRouter>
+  );
 }

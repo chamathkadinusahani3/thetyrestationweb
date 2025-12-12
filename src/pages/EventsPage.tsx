@@ -1,13 +1,54 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { EventsSection } from '../components/EventsSection';
-import { SparklesIcon, BellIcon } from 'lucide-react';
+import { SparklesIcon } from 'lucide-react';
+import { Helmet } from "react-helmet-async";
+
 
 export function EventsPage() {
   return (
     <div className="min-h-screen bg-black pt-20">
+      
+      {/* --- SEO TAGS --- */}
+      <Helmet>
+        <title>Events & Promotions | The Tyre Station</title>
+        <meta
+          name="description"
+          content="Discover exclusive events, promotions, product launches, and educational workshops from The Tyre Station. Stay updated with the latest tyre solutions in Sri Lanka."
+        />
+        <meta
+          name="keywords"
+          content="Tyre Station, Tyres Sri Lanka, Events, Promotions, Tyre Deals, Workshops, Product Launches"
+        />
+        <meta name="author" content="The Tyre Station" />
 
-      {/* Page Header */}
+        {/* Open Graph */}
+        <meta property="og:title" content="Events & Promotions | The Tyre Station" />
+        <meta
+          property="og:description"
+          content="Discover exclusive events, promotions, product launches, and educational workshops from The Tyre Station. Stay updated with the latest tyre solutions in Sri Lanka."
+        />
+        <meta
+          property="og:image"
+          content="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1200&q=80"
+        />
+        <meta property="og:url" content="https://yourwebsite.com/events" />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Events & Promotions | The Tyre Station" />
+        <meta
+          name="twitter:description"
+          content="Discover exclusive events, promotions, product launches, and educational workshops from The Tyre Station. Stay updated with the latest tyre solutions in Sri Lanka."
+        />
+        <meta
+          name="twitter:image"
+          content="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1200&q=80"
+        />
+      </Helmet>
+
+      {/* --- PAGE HEADER --- */}
       <section className="relative py-24 bg-black overflow-hidden">
         <div className="absolute inset-0">
           <motion.div
@@ -22,7 +63,6 @@ export function EventsPage() {
               backgroundPosition: 'center',
             }}
           />
-
           <div className="absolute inset-0 bg-gradient-to-b from-black via-black/90 to-black" />
         </div>
 
@@ -45,7 +85,7 @@ export function EventsPage() {
             transition={{ delay: 0.3 }}
             className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-6"
           >
-            Events &{" "}
+            Events &{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
               Promotions
             </span>
@@ -57,16 +97,13 @@ export function EventsPage() {
             transition={{ delay: 0.4 }}
             className="text-xl text-white/70 max-w-3xl mx-auto mb-8"
           >
-            Discover exclusive deals, product launches, and educational
-            workshops. Stay ahead with the latest from The Tyre Station.
+            Discover exclusive deals, product launches, and educational workshops. Stay ahead with the latest from The Tyre Station.
           </motion.p>
         </div>
       </section>
 
-      {/* Events Section */}
+      {/* --- EVENTS SECTION --- */}
       <EventsSection />
-
-      
     </div>
   );
 }

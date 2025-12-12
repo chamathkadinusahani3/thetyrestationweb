@@ -3,9 +3,13 @@ import { motion } from 'framer-motion';
 import { ChevronRightIcon, ZapIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+// ⭐ Import your local image
+import heroBg from '../assets/hero-bg.jpeg';  
+
 export function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+      
       {/* Background */}
       <div className="absolute inset-0">
         <motion.div
@@ -14,12 +18,12 @@ export function HeroSection() {
           transition={{ duration: 1.5 }}
           className="absolute inset-0 bg-gradient-to-b from-black via-black/90 to-black"
           style={{
-            backgroundImage:
-              'url(https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=1920&q=80)',
+            backgroundImage: `url(${heroBg})`,   
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
         />
+
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
 
         {/* Light Rays */}
@@ -32,6 +36,7 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
+
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -41,7 +46,7 @@ export function HeroSection() {
         >
           <ZapIcon className="w-4 h-4 text-yellow-400" />
           <span className="text-yellow-400 font-semibold text-sm">
-            Premium Performance Tyres
+            Quality Performance Tyres
           </span>
         </motion.div>
 
@@ -52,7 +57,7 @@ export function HeroSection() {
           transition={{ delay: 0.5 }}
           className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight"
         >
-          Premium Tyres for
+          Quality Tyres for
           <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 drop-shadow-[0_0_30px_rgba(255,215,0,0.5)]">
             Power, Grip & Control
@@ -66,8 +71,7 @@ export function HeroSection() {
           transition={{ delay: 0.7 }}
           className="text-xl sm:text-2xl text-white/70 mb-12 max-w-2xl mx-auto font-light"
         >
-          Drive safer, stronger, smarter with premium tyres engineered for
-          performance
+          Drive safer and smarter with The Tyre Station — the best tyre import company in Sri Lanka and trusted tyre shop in Colombo.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -77,31 +81,32 @@ export function HeroSection() {
           transition={{ delay: 0.9 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
+
           {/* View Tyres */}
-<Link to="/tyres">
-  <motion.div
-    whileHover={{
-      scale: 1.05,
-      boxShadow: '0 0 40px rgba(255,215,0,0.8)',
-    }}
-    whileTap={{ scale: 0.95 }}
-    className="group px-8 py-4 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 
-               text-black font-bold text-lg shadow-[0_0_30px_rgba(255,215,0,0.6)] 
-               hover:shadow-[0_0_50px_rgba(255,215,0,1)] transition-all 
-               flex items-center space-x-2 cursor-pointer"
-  >
-    <span>View Tyres</span>
-    <ChevronRightIcon className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-  </motion.div>
-</Link>
+          <Link to="/tyres">
+            <motion.div
+              whileHover={{
+                scale: 1.05,
+                boxShadow: '0 0 40px rgba(255,215,0,0.8)',
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="group px-8 py-4 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 
+                        text-black font-bold text-lg shadow-[0_0_30px_rgba(255,215,0,0.6)] 
+                        hover:shadow-[0_0_50px_rgba(255,215,0,1)] transition-all 
+                        flex items-center space-x-2 cursor-pointer"
+            >
+              <span>View Tyres</span>
+              <ChevronRightIcon className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </motion.div>
+          </Link>
 
-
-          {/* Send Inquiry → Contact Page */}
+          {/* Send Inquiry */}
           <Link to="/contact">
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 rounded-full bg-white/10 backdrop-blur-sm border-2 border-yellow-400/50 text-yellow-400 font-bold text-lg hover:bg-yellow-400/20 transition-all cursor-pointer"
+              className="px-8 py-4 rounded-full bg-white/10 backdrop-blur-sm border-2 border-yellow-400/50 
+                         text-yellow-400 font-bold text-lg hover:bg-yellow-400/20 transition-all cursor-pointer"
             >
               Send Inquiry
             </motion.div>
@@ -122,7 +127,6 @@ export function HeroSection() {
             style={{ perspective: 1000 }}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-yellow-600/20 rounded-full blur-3xl" />
-            
           </motion.div>
         </motion.div>
       </div>
@@ -145,6 +149,7 @@ export function HeroSection() {
           />
         </div>
       </motion.div>
+
     </section>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { SendIcon, PhoneIcon, MapPinIcon, ClockIcon, CheckCircleIcon, AlertCircleIcon } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 
@@ -9,6 +9,7 @@ export function ContactSection() {
   const [formData, setFormData] = useState({
     name: '',
     contact: '',
+    email: '',      // Added email
     vehicle: '',
     message: ''
   });
@@ -41,19 +42,20 @@ export function ContactSection() {
       const web3formsData = {
         access_key: '1d7c8871-cbf3-4e99-9119-756fba0d5a3f',
         name: formData.name,
-        email: 'chamathkadinusahani3@gmail.com',
+        email: formData.email,  // Use form email
         phone: formData.contact,
         subject: `New Tyre Inquiry from ${formData.name}`,
         message: `
 Name: ${formData.name}
 Contact Number: ${formData.contact}
+Email: ${formData.email}
 Vehicle/Tyre Size: ${formData.vehicle || 'Not specified'}
 
 Message:
 ${formData.message}
         `.trim(),
         from_name: 'The Tyre Station Website',
-        replyto: formData.contact
+        replyto: formData.email
       };
 
       const response = await fetch('https://api.web3forms.com/submit', {
@@ -71,10 +73,11 @@ ${formData.message}
           setFormData({
             name: '',
             contact: '',
+            email: '',
             vehicle: '',
             message: ''
           });
-          setSubmitStatus('idle');
+          setSubmitStatus('idle'); // hide popup after 3s
         }, 3000);
       } else {
         setSubmitStatus('error');
@@ -135,33 +138,6 @@ ${formData.message}
                   <span>Send Inquiry</span>
                 </h3>
 
-                {/* Success & Error */}
-                {submitStatus === 'success' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mb-6 p-4 rounded-lg bg-green-500/20 border border-green-500/50 flex items-center space-x-3"
-                  >
-                    <CheckCircleIcon className="w-5 h-5 text-green-400" />
-                    <p className="text-green-400 font-semibold">
-                      Inquiry sent successfully! We'll contact you soon.
-                    </p>
-                  </motion.div>
-                )}
-
-                {submitStatus === 'error' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mb-6 p-4 rounded-lg bg-red-500/20 border border-red-500/50 flex items-center space-x-3"
-                  >
-                    <AlertCircleIcon className="w-5 h-5 text-red-400" />
-                    <p className="text-red-400 font-semibold">
-                      Failed to send inquiry. Please try again or call us.
-                    </p>
-                  </motion.div>
-                )}
-
                 <div className="space-y-4">
 
                   {/* Name */}
@@ -179,6 +155,24 @@ ${formData.message}
                       disabled={isSubmitting}
                       className="w-full px-4 py-3 rounded-lg bg-black/50 border border-yellow-400/30 text-white placeholder-white/40 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 transition-all disabled:opacity-50"
                       placeholder="Your name"
+                    />
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <label className="block text-white/80 font-medium mb-2">
+                      Email *
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-3 rounded-lg bg-black/50 border border-yellow-400/30 text-white placeholder-white/40 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 transition-all disabled:opacity-50"
+                      placeholder="you@example.com"
                     />
                   </div>
 
@@ -284,7 +278,7 @@ ${formData.message}
                 </div>
                 <div>
                   <p className="text-yellow-400 font-semibold mb-1">24/7 Hotline</p>
-                  <p className="text-2xl font-bold text-white">+94 71 388 5885/+94 765 993 823</p>
+                  <p className="text-2xl font-bold text-white">+94 71 388 5885</p>
                 </div>
               </div>
             </motion.a>
@@ -320,24 +314,54 @@ ${formData.message}
             </div>
 
             {/* Map Placeholder */}
-            {/* Google Map */}
-<div className="relative h-64 rounded-2xl overflow-hidden border border-yellow-400/20">
-  <iframe
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1980.6952194261798!2d79.95575759839475!3d6.843708800000009!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae251709435de77%3A0xd8388600f217a04d!2sTHE%20TYRE%20STATION%20PVT%20LTD!5e0!3m2!1sen!2slk!4v1764571381348!5m2!1sen!2slk"
-    width="100%"
-    height="100%"
-    style={{ border: 0 }}
-    allowFullScreen
-    loading="lazy"
-    referrerPolicy="no-referrer-when-downgrade"
-  ></iframe>
-</div>
-
+            <div className="relative h-64 rounded-2xl overflow-hidden border border-yellow-400/20">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1980.6952194261798!2d79.95575759839475!3d6.843708800000009!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae251709435de77%3A0xd8388600f217a04d!2sTHE%20TYRE%20STATION%20PVT%20LTD!5e0!3m2!1sen!2slk!4v1764571381348!5m2!1sen!2slk"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
 
           </motion.div>
         </div>
 
       </div>
+
+      {/* Centered Success / Error Popup */}
+      <AnimatePresence>
+        {submitStatus === 'success' && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none"
+          >
+            <div className="bg-green-500/90 text-white font-semibold px-6 py-4 rounded-xl shadow-lg flex items-center space-x-3 backdrop-blur-sm">
+              <CheckCircleIcon className="w-6 h-6" />
+              <span>Inquiry sent successfully! We'll contact you soon.</span>
+            </div>
+          </motion.div>
+        )}
+
+        {submitStatus === 'error' && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none"
+          >
+            <div className="bg-red-500/90 text-white font-semibold px-6 py-4 rounded-xl shadow-lg flex items-center space-x-3 backdrop-blur-sm">
+              <AlertCircleIcon className="w-6 h-6" />
+              <span>Failed to send inquiry. Please try again or call us.</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </section>
   );
 }

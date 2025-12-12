@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 export function TyreCatalogue() {
   const [activeCategory, setActiveCategory] = useState("ALL");
+  const [searchQuery, setSearchQuery] = useState(""); // <-- Added for tools search
 
   const categories = [
     "ALL",
@@ -12,13 +13,11 @@ export function TyreCatalogue() {
     "LIGHT TRUCK",
     "TRUCK & BUS",
     "OFF THE ROAD",
+    "TOOLS",
   ];
 
   const tyres = [
-  // --------------------
-  // PASSENGER CAR
-  // --------------------
-  {
+     {
     id: 1,
     brand: "FORZA 001",
     pattern: "FORZA 001",
@@ -381,12 +380,64 @@ export function TyreCatalogue() {
     link: "https://kinto-tyres.lk/product/pr-1/",
 
   },
-];
+    
+  { id: 201, brand: "TYRE VULCANIZER(240V)", pattern: "", category: "TOOLS" },
+  { id: 202, brand: "Cross Beam Adaptor", pattern: "", category: "TOOLS" },
+  { id: 203, brand: "Wheel Nut 1.25 19-12xMM 1.25", pattern: "1006S-L27 HEX", category: "TOOLS" },
+  { id: 204, brand: "Wheel Nut 1.5 19-12xMM 1.5", pattern: "1007S-L27 HEX", category: "TOOLS" },
+  { id: 205, brand: "ADHESIVE WHEEL WEIGHT 6KG", pattern: "5G 10G*4 FE", category: "TOOLS" },
+  { id: 206, brand: "Air hose reel", pattern: "AHC-34-3", category: "TOOLS" },
+  { id: 207, brand: "Tiltback Tyre Changers (automatic)", pattern: "C233GB NAAR", category: "TOOLS" },
+  { id: 208, brand: "3T Low Profile Garage Jack", pattern: "E1525C", category: "TOOLS" },
+  { id: 209, brand: "2T Rachet Jack Stand with Safety Pin", pattern: "E1902", category: "TOOLS" },
+  { id: 210, brand: "3T Rachet Jack Stands with Safety Pin", pattern: "E1903", category: "TOOLS" },
+  { id: 211, brand: "Baseless 2 Post Lift 4T", pattern: "E2-4.0", category: "TOOLS" },
+  { id: 212, brand: "10 Ton Welded hydraulic Bottle Jack", pattern: "E3110", category: "TOOLS" },
+  { id: 213, brand: "20 Ton Welded Hydraulic Bottle Jack", pattern: "E3120", category: "TOOLS" },
+  { id: 214, brand: "30 Ton Welded Hydraulic Bottle Jack", pattern: "E3130", category: "TOOLS" },
+  { id: 215, brand: "50 Ton Hydraulic Bottle Jack", pattern: "E3150", category: "TOOLS" },
+  { id: 216, brand: "10000PSI Aluminum Air Hydraulic Pump", pattern: "E51020", category: "TOOLS" },
+  { id: 217, brand: "Air Chuck", pattern: "EAC512", category: "TOOLS" },
+  { id: 218, brand: "Tyre Pressure Gauge-Normal", pattern: "ECG-008A", category: "TOOLS" },
+  { id: 219, brand: "Tyre Pressure Gauge-Digital", pattern: "ECG-008B", category: "TOOLS" },
+  { id: 220, brand: "Labour Saving Wrench", pattern: "EW-78A", category: "TOOLS" },
+  { id: 221, brand: "ECCENTRIC CAMBER BOLT", pattern: "M10", category: "TOOLS" },
+  { id: 222, brand: "ECCENTRIC CAMBER BOLT", pattern: "M12", category: "TOOLS" },
+  { id: 223, brand: "ECCENTRIC CAMBER BOLT", pattern: "M13", category: "TOOLS" },
+  { id: 224, brand: "ECCENTRIC CAMBER BOLT", pattern: "M14", category: "TOOLS" },
+  { id: 225, brand: "ECCENTRIC CAMBER BOLT", pattern: "M15", category: "TOOLS" },
+  { id: 226, brand: "ECCENTRIC CAMBER BOLT", pattern: "M16", category: "TOOLS" },
+  { id: 227, brand: "ECCENTRIC CAMBER BOLT", pattern: "M17", category: "TOOLS" },
+  { id: 228, brand: "Tyre Mounting Paste 1kg", pattern: "PRO-3001", category: "TOOLS" },
+  { id: 229, brand: "Tyre Mounting Paste 3kg", pattern: "PRO-3003", category: "TOOLS" },
+  { id: 230, brand: "Tyre Mounting Paste 5kg", pattern: "PRO-3005", category: "TOOLS" },
+  { id: 231, brand: "Ten Socket Kits", pattern: "SOCKET-10", category: "TOOLS" },
+  { id: 232, brand: "Three Sockets Kits", pattern: "SOCKETS-3", category: "TOOLS" },
+  { id: 233, brand: "1TON Spring Compressor", pattern: "TL-10005", category: "TOOLS" },
+  { id: 234, brand: "1000LBS Motorcycle Jack", pattern: "TL-31001", category: "TOOLS" },
+  { id: 235, brand: "20 Ton Hydraulic Shop Press", pattern: "TL-5920", category: "TOOLS" },
+  { id: 236, brand: "Tubless Repair Kit", pattern: "TRK-006", category: "TOOLS" },
+  { id: 237, brand: "Tyre Valve Key", pattern: "VT-011", category: "TOOLS" },
+  { id: 238, brand: "Tyre Valve Puller (Blue)", pattern: "VT-026A", category: "TOOLS" },
+  { id: 239, brand: "Tyre Valve Puller (Green)", pattern: "VT-026B", category: "TOOLS" },
+
+
+  ];
 
   const filteredTyres =
     activeCategory === "ALL"
-      ? tyres
+      ? tyres.filter((t) => t.category !== "TOOLS")
       : tyres.filter((t) => t.category === activeCategory);
+
+  // Filtered tools based on search
+  const filteredTools =
+    activeCategory === "TOOLS"
+      ? filteredTyres.filter(
+          (tool) =>
+            tool.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            tool.pattern.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      : [];
 
   return (
     <section className="py-20 bg-black text-white">
@@ -400,7 +451,10 @@ export function TyreCatalogue() {
           {categories.map((cat) => (
             <button
               key={cat}
-              onClick={() => setActiveCategory(cat)}
+              onClick={() => {
+                setActiveCategory(cat);
+                setSearchQuery(""); // reset search when switching category
+              }}
               className={`px-5 py-2 rounded-full text-sm font-semibold border transition-all ${
                 activeCategory === cat
                   ? "bg-yellow-500 text-black border-yellow-500"
@@ -412,43 +466,103 @@ export function TyreCatalogue() {
           ))}
         </div>
 
-        {/* Tyre Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredTyres.map((tyre) => (
-            <motion.div
-              key={tyre.id}
-              whileHover={{ scale: 1.05 }}
-              className="p-5 bg-white/10 border border-yellow-400/20 rounded-xl"
-            >
-              <img src={tyre.image} className="w-full h-60 object-contain" />
+        {/* -------------------------
+            TOOLS SEARCH BAR
+        -------------------------- */}
+        {activeCategory === "TOOLS" && (
+          <div className="mb-6">
+            <input
+              type="text"
+              placeholder="Search tools by name or pattern..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full p-3 rounded-lg border border-yellow-400 bg-black text-white placeholder-yellow-400"
+            />
+          </div>
+        )}
 
-              <h3 className="text-xl font-semibold mt-4">{tyre.brand}</h3>
-              <p className="text-yellow-400">{tyre.pattern}</p>
-
-              <div className="flex gap-3 mt-5">
-                {/* View Button */}
-                <a
-                  href={tyre.link}
-                  target="_blank"
-                  className="flex-1 flex items-center justify-center gap-2 py-2 border border-yellow-400 text-yellow-400 rounded-lg"
+        {/* -------------------------
+            RENDER TOOLS AS LIST
+        -------------------------- */}
+        {activeCategory === "TOOLS" && (
+          <div className="space-y-4">
+            {filteredTools.length > 0 ? (
+              filteredTools.map((tool) => (
+                <div
+                  key={tool.id}
+                  className="flex items-center justify-between p-4 bg-white/10 border border-yellow-400/20 rounded-lg"
                 >
-                  <EyeIcon className="w-4 h-4" />
-                  View
-                </a>
+                  <div>
+                    <p className="text-lg font-semibold">{tool.brand}</p>
+                    <p className="text-yellow-400 text-sm">{tool.pattern}</p>
+                  </div>
 
-                {/* Inquiry Button */}
-                <Link
-                  to={`/contact?tyre=${encodeURIComponent(tyre.pattern)}`}
-                  className="flex-1 flex items-center justify-center gap-2 py-2 bg-yellow-500 text-black font-semibold rounded-lg"
-                >
-                  <SendIcon className="w-4 h-4" />
-                  Inquiry
-                </Link>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                  {/* Inquiry Button */}
+                  <Link
+                    to={`/contact?tyre=${encodeURIComponent(
+                      tool.brand + " " + tool.pattern
+                    )}`}
+                    className="px-4 py-2 bg-yellow-500 text-black font-semibold rounded-lg flex items-center gap-2"
+                  >
+                    <SendIcon className="w-4 h-4" />
+                    Inquiry
+                  </Link>
+                </div>
+              ))
+            ) : (
+              <p className="text-white/50 text-center">No tools found.</p>
+            )}
+          </div>
+        )}
+
+        {/* -------------------------
+            NORMAL TYRE GRID
+        -------------------------- */}
+        {activeCategory !== "TOOLS" && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredTyres.map((tyre) => (
+              <motion.div
+                key={tyre.id}
+                whileHover={{ scale: 1.05 }}
+                className="p-5 bg-white/10 border border-yellow-400/20 rounded-xl"
+              >
+                {tyre.image ? (
+                  <img src={tyre.image} className="w-full h-60 object-contain" />
+                ) : (
+                  <div className="w-full h-60 flex items-center justify-center text-yellow-400 border border-yellow-400/30 rounded-lg">
+                    No Image Available
+                  </div>
+                )}
+
+                <h3 className="text-xl font-semibold mt-4">{tyre.brand}</h3>
+                <p className="text-yellow-400">{tyre.pattern}</p>
+
+                <div className="flex gap-3 mt-5">
+                  {tyre.link && (
+                    <a
+                      href={tyre.link}
+                      target="_blank"
+                      className="flex-1 flex items-center justify-center gap-2 py-2 border border-yellow-400 text-yellow-400 rounded-lg"
+                    >
+                      <EyeIcon className="w-4 h-4" />
+                      View
+                    </a>
+                  )}
+
+                  <Link
+                    to={`/contact?tyre=${encodeURIComponent(tyre.pattern)}`}
+                    className="flex-1 flex items-center justify-center gap-2 py-2 bg-yellow-500 text-black font-semibold rounded-lg"
+                  >
+                    <SendIcon className="w-4 h-4" />
+                    Inquiry
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
 }
+ 

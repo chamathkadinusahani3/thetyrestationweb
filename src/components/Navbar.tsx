@@ -12,11 +12,13 @@ export function Navbar() {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Tyres', path: '/tyres' },
+    { name: 'Products', path: '/tyres' },
     { name: 'Services', path: '/services' },
     { name: 'Brands', path: '/brands' },
     { name: 'Events', path: '/events' },
+    { name: 'About Us', path: '/about' },
     { name: 'Contact', path: '/contact' },
+    
   ];
 
   const handleLinkClick = () => setMobileMenuOpen(false);
@@ -152,9 +154,12 @@ export function Navbar() {
                 {/* Close Header */}
                 <div className="flex items-center justify-between mb-8">
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center shadow-[0_0_20px_rgba(255,215,0,0.6)]">
-                      <span className="text-black font-bold text-lg">TS</span>
-                    </div>
+                    <img
+                    src={logo}
+                    alt="Logo"
+                    className="w-20 h-20 object-contain"
+                  />
+                  
                     <div>
                       <h2 className="text-sm font-bold text-white">
                         The Tyre Station
@@ -243,9 +248,10 @@ export function Navbar() {
                 >
                   <p className="text-white/60 text-sm mb-3">Contact Us</p>
                   <div className="space-y-2 text-sm">
-                    <p className="text-white">+1 234 567 8900</p>
-                    <p className="text-white/70">info@tyrestation.com</p>
-                    <p className="text-white/70">Mon-Sat: 8AM - 8PM</p>
+                    <p className="text-white">+94 71 388 5885</p>
+                    <p className="text-white/70">info@thetyrestation.lk</p>
+                    <p className="text-white/70">Mon - Fri: 8:30 AM - 5:30 PM</p>
+                     <p className="text-white/70">Saturday: 8:30 AM - 1:30 PM</p>
                   </div>
                 </motion.div>
 
