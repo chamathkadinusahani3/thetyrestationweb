@@ -9,17 +9,22 @@ export function ContactSection() {
   const [formData, setFormData] = useState({
     name: '',
     contact: '',
-    email: '',      // Added email
+    email: '',
     vehicle: '',
     message: ''
+  });
+
+  const [touched, setTouched] = useState({
+    name: false,
+    contact: false,
+    email: false,
+    vehicle: false,
+    message: false
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  // ------------------------------
-
-  // ------------------------------
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const tyreFromURL = params.get("tyre");
@@ -31,10 +36,24 @@ export function ContactSection() {
       }));
     }
   }, [location]);
-  // ------------------------------
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Mark all fields as touched to show validation if empty
+    setTouched({
+      name: true,
+      contact: true,
+      email: true,
+      vehicle: true,
+      message: true
+    });
+
+    // Check for empty required fields
+    if (!formData.name || !formData.contact || !formData.email || !formData.vehicle || !formData.message) {
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
@@ -42,14 +61,14 @@ export function ContactSection() {
       const web3formsData = {
         access_key: '7445c1a8-b762-4d39-a84f-0f56d58f1c65',
         name: formData.name,
-        email: formData.email,  // Use form email
+        email: formData.email,
         phone: formData.contact,
         subject: `New Tyre Inquiry from ${formData.name}`,
         message: `
 Name: ${formData.name}
 Contact Number: ${formData.contact}
 Email: ${formData.email}
-Vehicle/Tyre Size: ${formData.vehicle || 'Not specified'}
+Vehicle/Tyre Size: ${formData.vehicle}
 
 Message:
 ${formData.message}
@@ -77,7 +96,14 @@ ${formData.message}
             vehicle: '',
             message: ''
           });
-          setSubmitStatus('idle'); // hide popup after 3s
+          setTouched({
+            name: false,
+            contact: false,
+            email: false,
+            vehicle: false,
+            message: false
+          });
+          setSubmitStatus('idle');
         }, 3000);
       } else {
         setSubmitStatus('error');
@@ -90,9 +116,11 @@ ${formData.message}
     }
   };
 
+  const inputClass = "w-full px-4 py-3 rounded-lg bg-black/50 border text-white placeholder-white/40 focus:outline-none focus:ring-2 transition-all disabled:opacity-50";
+
   return (
     <section id="contact" className="relative py-24 bg-black overflow-hidden">
-      
+
       {/* Background Effects */}
       <div className="absolute inset-0">
         <motion.div
@@ -125,11 +153,7 @@ ${formData.message}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
           {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
+          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="p-8 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-yellow-400/20">
 
@@ -139,94 +163,102 @@ ${formData.message}
                 </h3>
 
                 <div className="space-y-4">
-
                   {/* Name */}
                   <div>
                     <label className="block text-white/80 font-medium mb-2">
-                      Name *
+                      Name <span className={`${touched.name && !formData.name ? 'text-red-500' : 'text-red-500'}`}>*</span>
                     </label>
                     <input
                       type="text"
-                      required
                       value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onBlur={() => setTouched({ ...touched, name: true })}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-3 rounded-lg bg-black/50 border border-yellow-400/30 text-white placeholder-white/40 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 transition-all disabled:opacity-50"
+                      className={`${inputClass} border-yellow-400/30 focus:border-yellow-400`}
                       placeholder="Your name"
                     />
+                    {touched.name && !formData.name && (
+                      <p className="text-red-500 text-sm mt-1">Name is required</p>
+                    )}
                   </div>
 
                   {/* Email */}
                   <div>
                     <label className="block text-white/80 font-medium mb-2">
-                      Email *
+                      Email <span className={`${touched.email && !formData.email ? 'text-red-500' : 'text-red-500'}`}>*</span>
                     </label>
                     <input
                       type="email"
-                      required
                       value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onBlur={() => setTouched({ ...touched, email: true })}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-3 rounded-lg bg-black/50 border border-yellow-400/30 text-white placeholder-white/40 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 transition-all disabled:opacity-50"
+                      className={`${inputClass} border-yellow-400/30 focus:border-yellow-400`}
                       placeholder="you@example.com"
                     />
+                    {touched.email && !formData.email && (
+                      <p className="text-red-500 text-sm mt-1">Email is required</p>
+                    )}
                   </div>
 
                   {/* Contact */}
                   <div>
                     <label className="block text-white/80 font-medium mb-2">
-                      Contact Number *
+                      Contact Number <span className={`${touched.contact && !formData.contact ? 'text-red-500' : 'text-red-500'}`}>*</span>
                     </label>
                     <input
                       type="tel"
-                      required
                       value={formData.contact}
-                      onChange={(e) =>
-                        setFormData({ ...formData, contact: e.target.value })
-                      }
+                      onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
+                      onBlur={() => setTouched({ ...touched, contact: true })}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-3 rounded-lg bg-black/50 border border-yellow-400/30 text-white placeholder-white/40 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 transition-all disabled:opacity-50"
+                      className={`${inputClass} border-yellow-400/30 focus:border-yellow-400`}
                       placeholder="+94 77 123 4567"
                     />
+                    {touched.contact && !formData.contact && (
+                      <p className="text-red-500 text-sm mt-1">Contact number is required</p>
+                    )}
+                     {touched.contact && formData.contact && !/^\d+$/.test(formData.contact.replace(/\s+/g, '')) && (
+                      <p className="text-red-500 text-sm mt-1">Contact number must contain only numbers</p>
+                    )}
                   </div>
 
                   {/* Vehicle / Tyre Size */}
                   <div>
                     <label className="block text-white/80 font-medium mb-2">
-                      Vehicle / Tyre Type
+                      Vehicle / Tyre Type <span className={`${touched.vehicle && !formData.vehicle ? 'text-red-500' : 'text-red-500'}`}>*</span>
                     </label>
                     <input
                       type="text"
                       value={formData.vehicle}
-                      onChange={(e) =>
-                        setFormData({ ...formData, vehicle: e.target.value })
-                      }
+                      onChange={(e) => setFormData({ ...formData, vehicle: e.target.value })}
+                      onBlur={() => setTouched({ ...touched, vehicle: true })}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-3 rounded-lg bg-black/50 border border-yellow-400/30 text-white placeholder-white/40 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 transition-all disabled:opacity-50"
+                      className={`${inputClass} border-yellow-400/30 focus:border-yellow-400`}
                       placeholder="e.g., 205/55 R16"
                     />
+                    {touched.vehicle && !formData.vehicle && (
+                      <p className="text-red-500 text-sm mt-1">Vehicle / Tyre type is required</p>
+                    )}
                   </div>
 
                   {/* Message */}
                   <div>
                     <label className="block text-white/80 font-medium mb-2">
-                      Message *
+                      Message <span className={`${touched.message && !formData.message ? 'text-red-500' : 'text-red-500'}`}>*</span>
                     </label>
                     <textarea
-                      required
                       rows={4}
                       value={formData.message}
-                      onChange={(e) =>
-                        setFormData({ ...formData, message: e.target.value })
-                      }
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      onBlur={() => setTouched({ ...touched, message: true })}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-3 rounded-lg bg-black/50 border border-yellow-400/30 text-white placeholder-white/40 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 transition-all resize-none disabled:opacity-50"
+                      className={`${inputClass} border-yellow-400/30 focus:border-yellow-400 resize-none`}
                       placeholder="Tell us about your requirements..."
                     />
+                    {touched.message && !formData.message && (
+                      <p className="text-red-500 text-sm mt-1">Message is required</p>
+                    )}
                   </div>
 
                   {/* Submit Button */}
@@ -259,16 +291,12 @@ ${formData.message}
             </form>
           </motion.div>
 
-          {/* Contact Info Right side - unchanged */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-          >
+          {/* Contact Info Right Side */}
+          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-6">
+
             {/* Hotline */}
             <motion.a
-              href="tel:+1234567890"
+              href="tel:+94713885885"
               whileHover={{ scale: 1.02 }}
               className="block p-6 rounded-2xl bg-gradient-to-br from-yellow-400/20 to-yellow-600/20 backdrop-blur-xl border border-yellow-400/50 shadow-[0_0_30px_rgba(255,215,0,0.3)] hover:shadow-[0_0_50px_rgba(255,215,0,0.5)] transition-all"
             >
@@ -285,7 +313,6 @@ ${formData.message}
 
             {/* Location & Hours */}
             <div className="p-6 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-yellow-400/20 space-y-6">
-
               <div className="flex items-start space-x-4">
                 <div className="w-12 h-12 rounded-lg bg-yellow-400/20 flex items-center justify-center">
                   <MapPinIcon className="w-6 h-6 text-yellow-400" />
@@ -293,7 +320,7 @@ ${formData.message}
                 <div>
                   <h4 className="text-white font-bold mb-2">Location</h4>
                   <p className="text-white/60">
-                    278/2 Highlevel Road<br />Pannipitiya,<br />Sri Lanka ,10230 
+                    278/2 Highlevel Road<br />Pannipitiya,<br />Sri Lanka ,10230
                   </p>
                 </div>
               </div>
@@ -310,10 +337,9 @@ ${formData.message}
                   </p>
                 </div>
               </div>
-
             </div>
 
-            {/* Map Placeholder */}
+            {/* Map */}
             <div className="relative h-64 rounded-2xl overflow-hidden border border-yellow-400/20">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1980.6952194261798!2d79.95575759839475!3d6.843708800000009!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae251709435de77%3A0xd8388600f217a04d!2sTHE%20TYRE%20STATION%20PVT%20LTD!5e0!3m2!1sen!2slk!4v1764571381348!5m2!1sen!2slk"
@@ -328,10 +354,9 @@ ${formData.message}
 
           </motion.div>
         </div>
-
       </div>
 
-      {/* Centered Success / Error Popup */}
+      {/* Success / Error Popup */}
       <AnimatePresence>
         {submitStatus === 'success' && (
           <motion.div
@@ -346,7 +371,6 @@ ${formData.message}
             </div>
           </motion.div>
         )}
-
         {submitStatus === 'error' && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -361,7 +385,6 @@ ${formData.message}
           </motion.div>
         )}
       </AnimatePresence>
-
     </section>
   );
 }

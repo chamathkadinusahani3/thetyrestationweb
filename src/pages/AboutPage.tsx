@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { SparklesIcon } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
-
+/* Team Images */
 import member1 from "../assets/team/member1.png";
 import member2 from "../assets/team/member2.png";
 import member3 from "../assets/team/member3.png";
@@ -17,77 +18,40 @@ import member11 from "../assets/team/member11.png";
 import member12 from "../assets/team/member12.png";
 import member13 from "../assets/team/member13.png";
 import member14 from "../assets/team/member14.png";
-import { Helmet } from "react-helmet-async";
+import member15 from "../assets/team/member15.png";
+import member16 from "../assets/team/member16.png";
+import member17 from "../assets/team/member17.png";
+import member18 from "../assets/team/member18.png";
 
-
-
+/* Achievements */
+import award1 from "../assets/achievements/award1.png";
+import award2 from "../assets/achievements/award2.png";
 
 const team = [
-  { name: "Lilan Fernando", role: "Chairman", image: member1 },
+  { name: "Lilan Fernando", role: "Managing Director", image: member1 },
   { name: "Dantha De Silva", role: "Chief Executive Officer", image: member2 },
   { name: "Osman Gunawardane", role: "Sales Manager", image: member3 },
-  { name: "Chinthaka Udayanga", role: "Head of Accountant", image: member4 },
-  { name: "Ruvini Liyanage", role: "Coodinator", image: member5 },
-  { name: "Shehara Withanage", image: member6 },
-  { name: "Amith Hemal", image: member7 },
-  { name: "Ramodya Hansani", image: member8 },
-  { name: "Ashara Athugala", image: member9 },
-  { name: "B D A Ishara", image: member10 },
-  { name: "Lahiru Priyankara", image: member11 },
-  { name: "Isuru Chamod", image: member12 },
-  { name: "Sandun Sameera", image: member13 },
-  { name: "Chaminda Priyadarshana", image: member14 },
+  { name: "Chinthaka Udayanga", role: "Head of Accounts ", image: member4 },
+  { name: "Ruvini Liyanage", role: "Business Coordinator", image: member5 },
+  { name: "Isharaka Perera", role: "Corporate Manager", image: member6 },
+  { name: "Shehara Withanage", image: member7 },
+  { name: "Amith Hemal", image: member8 },
+  { name: "Ramodya Hansani", image: member9 },
+  { name: "Ashara Athugala", image: member10 },
+  { name: "B D A Ishara", image: member11 },
+  { name: "Lahiru Priyankara", image: member12 },
+  { name: "Isuru Chamod", image: member13 },
+  { name: "Sandun Sameera", image: member14 },
+  { name: "Chaminda Priyadarshana", image: member15 },
+  { name: "Chamika Ransarani", image: member16 },
+  { name: "Chamathka Gamage", image: member17 },
+  { name: "Siyasari Sandanayaka", image: member18 },
 ];
 
-
 export function AboutPage() {
-  const [selectedYear, setSelectedYear] = useState("2024");
-
- 
-  const achievements = {
-    "2024": [
-      {
-        title: "Best Customer Service Award 2024",
-        desc: "Recognized for outstanding customer satisfaction and premium service delivery across Sri Lanka.",
-        img: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Medal_icon.png",
-      },
-      {
-        title: "Top Retail Performance Award",
-        desc: "Awarded for excellence in tyre retail operations and distributor satisfaction.",
-        img: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Gold_medal_icon.png",
-      },
-    ],
-    "2023": [
-      {
-        title: "Quality Assurance Excellence",
-        desc: "Awarded for maintaining high standards in tyre quality and safety performance.",
-        img: "https://upload.wikimedia.org/wikipedia/commons/9/95/Crystal_award.png",
-      },
-    ],
-  };
-
   return (
-    
     <div className="min-h-screen bg-black text-white pt-20">
-      <Helmet>
-  <title>About Us | The Tyre Station</title>
-  <meta name="description" content="Learn more about The Tyre Station: 42+ years of premium tyre service, trusted team, awards, and UK operations under NUTYRE." />
-  <meta name="keywords" content="Tyre Station, Tyres Sri Lanka, Premium Tyres, UK Office, NUTYRE, Tyre Services" />
-  <meta name="author" content="The Tyre Station" />
-
-  {/* Open Graph / Social sharing */}
-  <meta property="og:title" content="About Us | The Tyre Station" />
-  <meta property="og:description" content="Learn more about The Tyre Station: 42+ years of premium tyre service, trusted team, awards, and UK operations under NUTYRE." />
-  <meta property="og:image" content="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1200&q=80" />
-  <meta property="og:url" content="https://yourwebsite.com/about" />
-  <meta property="og:type" content="website" />
-
-  {/* Twitter Card */}
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="About Us | The Tyre Station" />
-  <meta name="twitter:description" content="Learn more about The Tyre Station: 42+ years of premium tyre service, trusted team, awards, and UK operations under NUTYRE." />
-  <meta name="twitter:image" content="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1200&q=80" />
-</Helmet>
+      <Helmet />
 
       {/* --- HERO SECTION --- */}
       <section className="relative py-24 bg-black overflow-hidden">
@@ -143,7 +107,7 @@ export function AboutPage() {
         </div>
       </section>
 
-      {/* --- WHO WE ARE SECTION --- */}
+         {/* --- WHO WE ARE SECTION --- */}
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
           <motion.h2
@@ -200,8 +164,7 @@ export function AboutPage() {
         </div>
       </section>
 
-      {/* --- TEAM SECTION --- */}
-{/* --- TEAM SECTION --- */}
+     {/* --- TEAM SECTION --- */}
 <section className="py-24">
   <div className="max-w-6xl mx-auto px-6 text-center">
 
@@ -271,18 +234,11 @@ export function AboutPage() {
 </section>
 
 
-
-      {/* --- ACHIEVEMENTS SECTION --- */}
-      {/* --- ACHIEVEMENTS SECTION (NO TABS) --- */}
+     {/* --- ACHIEVEMENTS SECTION --- */}
 <section className="py-24 border-t border-white/10">
   <div className="max-w-6xl mx-auto px-6 text-center">
+    <h2 className="text-4xl font-bold mb-12">Awards & Achievements</h2>
 
-    <h2 className="text-4xl font-bold mb-4">Awards & Achievements</h2>
-    <p className="text-white/70 max-w-2xl mx-auto mb-12">
-      Recognizing our commitment to excellence, service quality, and industry leadership.
-    </p>
-
-    {/* Achievement Grid */}
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
 
       {/* ACHIEVEMENT 1 */}
@@ -291,18 +247,14 @@ export function AboutPage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4 }}
-        className="p-6 bg-gradient-to-br from-white/10 to-white/5 
-                   border border-white/10 rounded-xl backdrop-blur-xl"
+        className="p-6 bg-gradient-to-br from-white/10 to-white/5 border border-white/10 rounded-xl backdrop-blur-xl"
       >
-        <div className="w-64 h-64 mx-auto mb-4 overflow-hidden rounded-xl bg-black/20 flex items-center justify-center">
-          <img
-            src="https://scontent.fcmb1-2.fna.fbcdn.net/v/t39.30808-6/533258661_122151859934766694_2669735018629448771_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=f727a1&_nc_ohc=eLGyj4ZlroMQ7kNvwEKUnU1&_nc_oc=AdkksHZhNL7DNvkhXNZ-SowEJRX5cdisEAjTbRa3hrXupzME6SjQE-hoz5J548S_DSo&_nc_zt=23&_nc_ht=scontent.fcmb1-2.fna&_nc_gid=caxW4XXgGdamogQ7qjqU1A&oh=00_AfkJFRTyzkDV_bApR83RYzgcvQ7mLZNuFi46_Kjr8SmqZg&oe=69384733"
-            className="w-full h-full object-cover"
-            alt="award"
-          />
+        <div className="w-full h-64 mx-auto mb-4 overflow-hidden rounded-xl bg-black/20 flex items-center justify-center">
+          <img src={award1} alt="Award 1" className="w-full h-full object-cover" />
         </div>
-
-        <h3 className="text-xl font-semibold mb-2">Excellence in Best Customer Statisfaction Garantee 2025</h3>
+        <h3 className="text-xl font-semibold mb-2">
+          Excellence in Best Customer Statisfaction Garantee 2025
+        </h3>
         <p className="text-white/60 text-sm">
           Certificate is proudly presented for outstanding achivement as the Excellence in Best Customer Statisfaction Garantee presented to The Tyre Station (PVT) LTD by Global Bussiness Excellence Awards 2025.
         </p>
@@ -314,20 +266,14 @@ export function AboutPage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: 0.1 }}
-        className="p-6 bg-gradient-to-br from-white/10 to-white/5 
-                   border border-white/10 rounded-xl backdrop-blur-xl"
+        className="p-6 bg-gradient-to-br from-white/10 to-white/5 border border-white/10 rounded-xl backdrop-blur-xl"
       >
-        <div className="w-64 h-64 mx-auto mb-4 overflow-hidden rounded-xl bg-black/20 flex items-center justify-center">
-          <img
-            src="https://scontent.fcmb1-2.fna.fbcdn.net/v/t39.30808-6/475211198_122113934924713133_2978547881813512913_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=127cfc&_nc_ohc=RuW2d_qINmkQ7kNvwGc0E3b&_nc_oc=Adlm1_X5qql-Wrt3TkOdmvSZIm24zlCZpcKEa35OswkBdZOTVvvB5luxLP6VorKiz04&_nc_zt=23&_nc_ht=scontent.fcmb1-2.fna&_nc_gid=hmOHf_yzGxJYu-7j4YJKYw&oh=00_AfkaBPixKG2rK1Cte_zxdSsuYh__bbEu4qAWCIwBT8748g&oe=693867F8"
-            className="w-full h-full object-cover"
-            alt="award"
-          />
+        <div className="w-full h-64 mx-auto mb-4 overflow-hidden rounded-xl bg-black/20 flex items-center justify-center">
+          <img src={award2} alt="Award 2" className="w-full h-full object-cover" />
         </div>
-
         <h3 className="text-xl font-semibold mb-2">Certification Of Exclusive Distributor</h3>
         <p className="text-white/60 text-sm">
-          Certify that The Tyre Station (PVT) LTD is the distributor of Kinto Tyres in Sri Lanka .
+          Certify that The Tyre Station (PVT) LTD is the distributor of Kinto Tyres in Sri Lanka.
         </p>
       </motion.div>
 
@@ -336,7 +282,7 @@ export function AboutPage() {
 </section>
 
 
-{/* --- UK OFFICE HIGHLIGHT SECTION (with Logo) --- */}
+      {/* --- UK OFFICE HIGHLIGHT SECTION (with Logo) --- */}
 <section className="py-24">
   <div className="max-w-6xl mx-auto px-6">
 
@@ -390,8 +336,29 @@ export function AboutPage() {
 
   </div>
 </section>
-
-
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
