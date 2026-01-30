@@ -331,40 +331,38 @@ export function AboutPage() {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
 
       {/* AWARD 1 */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="bg-gradient-to-br from-white/10 to-white/5 
-                   border border-yellow-400/20 rounded-2xl p-8 backdrop-blur-xl"
-      >
-        <div className="w-full h-72 mb-6 overflow-hidden rounded-xl bg-black/20">
-          <img
-            src={award1}
-            alt="Excellence in Best Customer Satisfaction Guarantee 2025"
-            className="w-full h-full object-cover"
-          />
-        </div>
+<motion.div
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  className="bg-gradient-to-br from-white/10 to-white/5 
+             border border-yellow-400/20 rounded-2xl p-8 backdrop-blur-xl"
+>
+  <div className="w-full h-72 mb-6 overflow-hidden rounded-xl bg-black/20">
+    <img
+      src={award1}
+      alt="Excellence in Best Customer Satisfaction Guarantee 2025"
+      className="w-full h-full object-cover"
+    />
+  </div>
 
-        <h3 className="text-2xl font-semibold mb-4">
-          Excellence in Best Customer Satisfaction Guarantee – 2025
-        </h3>
+  <h3 className="text-2xl font-semibold mb-4">
+    Excellence in Best Customer Satisfaction Guarantee – 2025
+  </h3>
 
-        <p className="text-white/70 leading-relaxed mb-4">
-          This award recognizes <strong>The Tyre Station (PVT) LTD</strong> for
-          outstanding achievement in delivering superior customer satisfaction
-          and service excellence.
-        </p>
+  <p className="text-white/70 leading-relaxed mb-4">
+    This award recognizes <strong>The Tyre Station (PVT) LTD</strong>, the exclusive distributor of <strong>KINTO Tyres in Sri Lanka</strong>, for outstanding achievement in delivering exceptional customer satisfaction and service quality.
+  </p>
 
-        <p className="text-white/70 leading-relaxed mb-4">
-          The certificate was proudly presented by the{" "}
-          <strong>Global Business Excellence Awards – 2025</strong>.
-        </p>
+  <p className="text-white/70 leading-relaxed mb-4">
+    The certificate was proudly presented by the <strong>Global Business Excellence Awards – 2025</strong> and handed over by <strong>His Excellency Maithripala Sirisena, former President of Sri Lanka</strong>, acknowledging the company’s consistent commitment to customer care, reliability, and professional business practices.
+  </p>
 
-        <p className="text-sm text-yellow-400 italic">
-          Achieved under the leadership of Director Mr. Lilan Fernando
-        </p>
-      </motion.div>
+  <p className="text-sm text-yellow-400 italic">
+    Achieved under the leadership of Director <strong>Mr. Lilan Fernando</strong>
+  </p>
+</motion.div>
+
 
       {/* AWARD 2 */}
       <motion.div
