@@ -19,7 +19,6 @@ import member12 from "../assets/team/member12.png";
 import member13 from "../assets/team/member13.png";
 import member14 from "../assets/team/member14.png";
 import member15 from "../assets/team/member15.png";
-import member16 from "../assets/team/member16.png";
 import member17 from "../assets/team/member17.png";
 import member18 from "../assets/team/member18.png";
 
@@ -43,7 +42,6 @@ const team = [
   { name: "Isuru Chamod", image: member13 },
   { name: "Sandun Sameera", image: member14 },
   { name: "Chaminda Priyadarshana", image: member15 },
-  { name: "Chamika Ransarani", image: member16 },
   { name: "Chamathka Gamage", image: member17 },
   { name: "Siyasari Sandanayaka", image: member18 },
 ];
@@ -164,6 +162,71 @@ export function AboutPage() {
         </div>
       </section>
 
+{/* --- DIRECTOR MESSAGE SECTION --- */}
+<section className="py-24 border-t border-white/10">
+  <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+    {/* Director Image */}
+    <motion.div
+      initial={{ opacity: 0, x: -40 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      className="flex justify-center"
+    >
+      <div
+        className="w-80 h-96 rounded-3xl overflow-hidden 
+                   border-2 border-yellow-400/40 shadow-2xl
+                   bg-gradient-to-br from-yellow-400/10 to-black"
+      >
+        <img
+          src={member1}
+          alt="Mr. Lilan Fernando - Managing Director"
+          className="w-full h-full object-cover"
+        />
+      </div>
+    </motion.div>
+
+    {/* Director Message */}
+    <motion.div
+      initial={{ opacity: 0, x: 40 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+    >
+      <h2 className="text-5xl font-bold mb-6">
+        Message from the{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
+          Director
+        </span>
+      </h2>
+
+      <p className="text-white/80 text-lg leading-relaxed mb-5">
+        Welcome to <strong>The Tyre Station (Private) Limited</strong>.
+        Our journey has always been driven by a commitment to quality,
+        trust, and long-term customer satisfaction.
+      </p>
+
+      <p className="text-white/80 text-lg leading-relaxed mb-5">
+        With over four decades of experience in the tyre industry, we
+        continue to focus on delivering reliable products, professional
+        service, and value-driven solutions that meet international standards.
+      </p>
+
+      <p className="text-white/80 text-lg leading-relaxed mb-8">
+        I sincerely thank our customers, partners, and team members for
+        their continued trust and support as we move forward together.
+      </p>
+
+      <div className="border-l-4 border-yellow-400 pl-4">
+        <p className="font-semibold text-xl">Mr. Lilan Fernando</p>
+        <p className="text-white/60">Managing Director</p>
+        <p className="text-white/60">The Tyre Station (PVT) LTD</p>
+      </div>
+    </motion.div>
+
+  </div>
+</section>
+
+
      {/* --- TEAM SECTION --- */}
 <section className="py-24">
   <div className="max-w-6xl mx-auto px-6 text-center">
@@ -181,30 +244,31 @@ export function AboutPage() {
     </motion.h2>
 
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
-      {team.map((member, index) => (
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: index * 0.05 }}
-          className="p-6 bg-gradient-to-br from-white/10 to-white/5 
-                     backdrop-blur-xl border border-yellow-400/20 rounded-2xl"
-        >
-          <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 
-                          border-2 border-yellow-400/40 shadow-lg">
-            <img
-              src={member.image}
-              alt={member.name}
-              className="w-full h-full object-cover"
-            />
-          </div>
+  {team.slice(1).map((member, index) => (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.05 }}
+      className="p-6 bg-gradient-to-br from-white/10 to-white/5 
+                 backdrop-blur-xl border border-yellow-400/20 rounded-2xl"
+    >
+      <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 
+                      border-2 border-yellow-400/40 shadow-lg">
+        <img
+          src={member.image}
+          alt={member.name}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-          <h3 className="font-semibold text-white">{member.name}</h3>
-          <p className="text-white/60 text-sm">{member.role}</p>
-        </motion.div>
-      ))}
-    </div>
+      <h3 className="font-semibold text-white">{member.name}</h3>
+      <p className="text-white/60 text-sm">{member.role}</p>
+    </motion.div>
+  ))}
+</div>
+
 
     {/* Dealer Map Section with paragraph */}
     <div className="max-w-3xl mx-auto mt-12 text-center">
@@ -235,45 +299,94 @@ export function AboutPage() {
 
 
      {/* --- ACHIEVEMENTS SECTION --- */}
+{/* --- AWARDS & CERTIFICATIONS (DIRECTOR LED) --- */}
 <section className="py-24 border-t border-white/10">
-  <div className="max-w-6xl mx-auto px-6 text-center">
-    <h2 className="text-4xl font-bold mb-12">Awards & Achievements</h2>
+  <div className="max-w-6xl mx-auto px-6">
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+    <motion.h2
+      initial={{ opacity: 0, y: 25 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="text-5xl font-bold text-center mb-16"
+    >
+      Awards &{" "}
+      <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
+        Certifications
+      </span>
+    </motion.h2>
 
-      {/* ACHIEVEMENT 1 */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+      {/* AWARD 1 */}
       <motion.div
-        initial={{ opacity: 0, y: 25 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.4 }}
-        className="p-6 bg-gradient-to-br from-white/10 to-white/5 border border-white/10 rounded-xl backdrop-blur-xl"
+        className="bg-gradient-to-br from-white/10 to-white/5 
+                   border border-yellow-400/20 rounded-2xl p-8 backdrop-blur-xl"
       >
-        <div className="w-full h-64 mx-auto mb-4 overflow-hidden rounded-xl bg-black/20 flex items-center justify-center">
-          <img src={award1} alt="Award 1" className="w-full h-full object-cover" />
+        <div className="w-full h-72 mb-6 overflow-hidden rounded-xl bg-black/20">
+          <img
+            src={award1}
+            alt="Excellence in Best Customer Satisfaction Guarantee 2025"
+            className="w-full h-full object-cover"
+          />
         </div>
-        <h3 className="text-xl font-semibold mb-2">
-          Excellence in Best Customer Statisfaction Garantee 2025
+
+        <h3 className="text-2xl font-semibold mb-4">
+          Excellence in Best Customer Satisfaction Guarantee – 2025
         </h3>
-        <p className="text-white/60 text-sm">
-          Certificate is proudly presented for outstanding achivement as the Excellence in Best Customer Statisfaction Garantee presented to The Tyre Station (PVT) LTD by Global Bussiness Excellence Awards 2025.
+
+        <p className="text-white/70 leading-relaxed mb-4">
+          This award recognizes <strong>The Tyre Station (PVT) LTD</strong> for
+          outstanding achievement in delivering superior customer satisfaction
+          and service excellence.
+        </p>
+
+        <p className="text-white/70 leading-relaxed mb-4">
+          The certificate was proudly presented by the{" "}
+          <strong>Global Business Excellence Awards – 2025</strong>.
+        </p>
+
+        <p className="text-sm text-yellow-400 italic">
+          Achieved under the leadership of Director Mr. Lilan Fernando
         </p>
       </motion.div>
 
-      {/* ACHIEVEMENT 2 */}
+      {/* AWARD 2 */}
       <motion.div
-        initial={{ opacity: 0, y: 25 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.4, delay: 0.1 }}
-        className="p-6 bg-gradient-to-br from-white/10 to-white/5 border border-white/10 rounded-xl backdrop-blur-xl"
+        transition={{ delay: 0.1 }}
+        className="bg-gradient-to-br from-white/10 to-white/5 
+                   border border-yellow-400/20 rounded-2xl p-8 backdrop-blur-xl"
       >
-        <div className="w-full h-64 mx-auto mb-4 overflow-hidden rounded-xl bg-black/20 flex items-center justify-center">
-          <img src={award2} alt="Award 2" className="w-full h-full object-cover" />
+        <div className="w-full h-72 mb-6 overflow-hidden rounded-xl bg-black/20">
+          <img
+            src={award2}
+            alt="Exclusive Distributor Certification"
+            className="w-full h-full object-cover"
+          />
         </div>
-        <h3 className="text-xl font-semibold mb-2">Certification Of Exclusive Distributor</h3>
-        <p className="text-white/60 text-sm">
-          Certify that The Tyre Station (PVT) LTD is the distributor of Kinto Tyres in Sri Lanka.
+
+        <h3 className="text-2xl font-semibold mb-4">
+          Certification of Exclusive Distributor
+        </h3>
+
+        <p className="text-white/70 leading-relaxed mb-4">
+          This certification officially confirms that{" "}
+          <strong>The Tyre Station (PVT) LTD</strong> is the authorized and
+          exclusive distributor of <strong>KINTO Tyres</strong> in Sri Lanka.
+        </p>
+
+        <p className="text-white/70 leading-relaxed mb-4">
+          It validates our trusted partnership and commitment to maintaining
+          international quality and distribution standards.
+        </p>
+
+        <p className="text-sm text-yellow-400 italic">
+          Awarded under the leadership of Director Mr. Lilan Fernando
         </p>
       </motion.div>
 
