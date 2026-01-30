@@ -49,7 +49,20 @@ const team = [
 export function AboutPage() {
   return (
     <div className="min-h-screen bg-black text-white pt-20">
-      <Helmet />
+      <Helmet>
+  <title>About Us | The Tyre Station Sri Lanka</title>
+
+  <meta
+    name="description"
+    content="Learn about The Tyre Station (PVT) LTD, our leadership, awards, and team. Led by Managing Director Mr. Lilan Fernando, delivering trusted tyre solutions in Sri Lanka."
+  />
+
+  <meta
+    name="keywords"
+    content="The Tyre Station Sri Lanka, Lilan Fernando, Managing Director Lilan Fernando, tyre distributor Sri Lanka, Kinto Tyres Sri Lanka"
+  />
+</Helmet>
+
 
       {/* --- HERO SECTION --- */}
       <section className="relative py-24 bg-black overflow-hidden">
