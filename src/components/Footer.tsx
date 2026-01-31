@@ -180,7 +180,7 @@ export function Footer() {
                     <p className="font-semibold text-white group-hover:text-yellow-400">
                       24/7 Hotline
                     </p>
-                    <p>+94 71 388 5885</p>
+                    <p>+94 71 3 885 885</p>
                   </div>
                 </motion.a>
               </li>

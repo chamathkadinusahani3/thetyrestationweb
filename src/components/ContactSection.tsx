@@ -306,7 +306,7 @@ ${formData.message}
                 </div>
                 <div>
                   <p className="text-yellow-400 font-semibold mb-1">24/7 Hotline</p>
-                  <p className="text-2xl font-bold text-white">+94 71 388 5885</p>
+                  <p className="text-2xl font-bold text-white">+94 71 3 885 885</p>
                 </div>
               </div>
             </motion.a>
