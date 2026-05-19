@@ -15,10 +15,8 @@ import { DirectorPage } from "./pages/DirectorPage"; // NEW - Director Profile P
 import ScrollToTop from "./components/ScrollToTop";
 import DealerForm from "./components/DealerForm";
 import DealerMapPage from "./pages/DealerMapPage";
-<<<<<<< HEAD
 import CoporatePage from "./pages/CoporatePage";
-=======
->>>>>>> b33300f609f18bf38fa4c6ea862f568aa4507419
+
 
 export function App() {
   return (
@@ -32,19 +30,18 @@ export function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/tyres" element={<TyresPage />} />
               <Route path="/about" element={<AboutPage />} />
-<<<<<<< HEAD
+
               <Route path="/director" element={<DirectorPage />} /> 
-=======
+
               <Route path="/director" element={<DirectorPage />} /> {/* NEW - Director Page */}
->>>>>>> b33300f609f18bf38fa4c6ea862f568aa4507419
+
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/brands" element={<BrandsPage />} />
               <Route path="/events" element={<EventsPage />} />
               <Route path="/contact" element={<ContactPage />} />
-<<<<<<< HEAD
+
               <Route path="/coporate" element={<CoporatePage />} />
-=======
->>>>>>> b33300f609f18bf38fa4c6ea862f568aa4507419
+
               <Route path="/dealer" element={<DealerForm />} />
               <Route path="/dealer-map" element={<DealerMapPage />} />
             </Routes>

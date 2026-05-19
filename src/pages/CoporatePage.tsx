@@ -46,7 +46,7 @@ const clients = [
   {
     name: "Municipal Council of Colombo",
     sector: "Government",
-    logo: "/clients/colombo-council.png",
+    logo: "/thetyrestationweb/clients/colombo-council.png",
   },
   {
     name: "Galahitiya Tea Factory",
@@ -55,7 +55,7 @@ const clients = [
   },
   {
     name: "KDU",
-    sector: "Education",
+    sector: "Tea Industry",
     logo: "/thetyrestationweb/clients/kdu.png",
   },
   {
@@ -71,7 +71,7 @@ const clients = [
   {
     name: "Wewelkandura Tea Factory",
     sector: "Tea Industry",
-    logo: "/clients/wewelkandura.png",
+    logo: "/thetyrestationweb/clients/wewelkandura.png",
   },
   {
     name: "ICS",
@@ -86,7 +86,7 @@ const clients = [
   {
     name: "Raigam",
     sector: "FMCG",
-    logo: "/clients/raigam.png",
+    logo: "/thetyrestationweb/clients/raigam.png",
   },
   {
     name: "Mal-Key",
@@ -96,7 +96,7 @@ const clients = [
   {
     name: "Arya Hospital",
     sector: "Healthcare",
-    logo: "/clients/arya.png",
+    logo: "/thetyrestationweb/clients/arya.png",
   },
   {
     name: "Grand Monarch Hotel",
@@ -106,7 +106,7 @@ const clients = [
   {
     name: "Cemento",
     sector: "Construction",
-    logo: "/clients/cemento.png",
+    logo: "/thetyrestationweb/clients/cemento.png",
   },
   {
     name: "CES",
