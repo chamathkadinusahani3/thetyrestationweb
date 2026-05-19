@@ -1,0 +1,390 @@
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { SendIcon, PhoneIcon, MapPinIcon, ClockIcon, CheckCircleIcon, AlertCircleIcon } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
+
+export function ContactSection() {
+  const location = useLocation();
+
+  const [formData, setFormData] = useState({
+    name: '',
+    contact: '',
+    email: '',
+    vehicle: '',
+    message: ''
+  });
+
+  const [touched, setTouched] = useState({
+    name: false,
+    contact: false,
+    email: false,
+    vehicle: false,
+    message: false
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const tyreFromURL = params.get("tyre");
+
+    if (tyreFromURL) {
+      setFormData(prev => ({
+        ...prev,
+        vehicle: tyreFromURL
+      }));
+    }
+  }, [location]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Mark all fields as touched to show validation if empty
+    setTouched({
+      name: true,
+      contact: true,
+      email: true,
+      vehicle: true,
+      message: true
+    });
+
+    // Check for empty required fields
+    if (!formData.name || !formData.contact || !formData.email || !formData.vehicle || !formData.message) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const web3formsData = {
+        access_key: '7445c1a8-b762-4d39-a84f-0f56d58f1c65',
+        name: formData.name,
+        email: formData.email,
+        phone: formData.contact,
+        subject: `New Tyre Inquiry from ${formData.name}`,
+        message: `
+Name: ${formData.name}
+Contact Number: ${formData.contact}
+Email: ${formData.email}
+Vehicle/Tyre Size: ${formData.vehicle}
+
+Message:
+${formData.message}
+        `.trim(),
+        from_name: 'The Tyre Station Website',
+        replyto: formData.email
+      };
+
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(web3formsData)
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitStatus('success');
+
+        setTimeout(() => {
+          setFormData({
+            name: '',
+            contact: '',
+            email: '',
+            vehicle: '',
+            message: ''
+          });
+          setTouched({
+            name: false,
+            contact: false,
+            email: false,
+            vehicle: false,
+            message: false
+          });
+          setSubmitStatus('idle');
+        }, 3000);
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const inputClass = "w-full px-4 py-3 rounded-lg bg-black/50 border text-white placeholder-white/40 focus:outline-none focus:ring-2 transition-all disabled:opacity-50";
+
+  return (
+    <section id="contact" className="relative py-24 bg-black overflow-hidden">
+
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <motion.div
+          animate={{ opacity: [0.1, 0.2, 0.1] }}
+          transition={{ duration: 5, repeat: Infinity }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-yellow-500/10 rounded-full blur-[150px]"
+        />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">
+            Get in
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
+              {' '}Touch
+            </span>
+          </h2>
+          <p className="text-xl text-white/60 max-w-2xl mx-auto">
+            Send us your inquiry and we'll get back to you promptly
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+          {/* Contact Form */}
+          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="p-8 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-yellow-400/20">
+
+                <h3 className="text-2xl font-bold text-white mb-6 flex items-center space-x-2">
+                  <SendIcon className="w-6 h-6 text-yellow-400" />
+                  <span>Send Inquiry</span>
+                </h3>
+
+                <div className="space-y-4">
+                  {/* Name */}
+                  <div>
+                    <label className="block text-white/80 font-medium mb-2">
+                      Name <span className={`${touched.name && !formData.name ? 'text-red-500' : 'text-red-500'}`}>*</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onBlur={() => setTouched({ ...touched, name: true })}
+                      disabled={isSubmitting}
+                      className={`${inputClass} border-yellow-400/30 focus:border-yellow-400`}
+                      placeholder="Your name"
+                    />
+                    {touched.name && !formData.name && (
+                      <p className="text-red-500 text-sm mt-1">Name is required</p>
+                    )}
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <label className="block text-white/80 font-medium mb-2">
+                      Email <span className={`${touched.email && !formData.email ? 'text-red-500' : 'text-red-500'}`}>*</span>
+                    </label>
+                    <input
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onBlur={() => setTouched({ ...touched, email: true })}
+                      disabled={isSubmitting}
+                      className={`${inputClass} border-yellow-400/30 focus:border-yellow-400`}
+                      placeholder="you@example.com"
+                    />
+                    {touched.email && !formData.email && (
+                      <p className="text-red-500 text-sm mt-1">Email is required</p>
+                    )}
+                  </div>
+
+                  {/* Contact */}
+                  <div>
+                    <label className="block text-white/80 font-medium mb-2">
+                      Contact Number <span className={`${touched.contact && !formData.contact ? 'text-red-500' : 'text-red-500'}`}>*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      value={formData.contact}
+                      onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
+                      onBlur={() => setTouched({ ...touched, contact: true })}
+                      disabled={isSubmitting}
+                      className={`${inputClass} border-yellow-400/30 focus:border-yellow-400`}
+                      placeholder="+94 77 123 4567"
+                    />
+                    {touched.contact && !formData.contact && (
+                      <p className="text-red-500 text-sm mt-1">Contact number is required</p>
+                    )}
+                     {touched.contact && formData.contact && !/^\d+$/.test(formData.contact.replace(/\s+/g, '')) && (
+                      <p className="text-red-500 text-sm mt-1">Contact number must contain only numbers</p>
+                    )}
+                  </div>
+
+                  {/* Vehicle / Tyre Size */}
+                  <div>
+                    <label className="block text-white/80 font-medium mb-2">
+                      Vehicle / Tyre Type <span className={`${touched.vehicle && !formData.vehicle ? 'text-red-500' : 'text-red-500'}`}>*</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.vehicle}
+                      onChange={(e) => setFormData({ ...formData, vehicle: e.target.value })}
+                      onBlur={() => setTouched({ ...touched, vehicle: true })}
+                      disabled={isSubmitting}
+                      className={`${inputClass} border-yellow-400/30 focus:border-yellow-400`}
+                      placeholder="e.g., 205/55 R16"
+                    />
+                    {touched.vehicle && !formData.vehicle && (
+                      <p className="text-red-500 text-sm mt-1">Vehicle / Tyre type is required</p>
+                    )}
+                  </div>
+
+                  {/* Message */}
+                  <div>
+                    <label className="block text-white/80 font-medium mb-2">
+                      Message <span className={`${touched.message && !formData.message ? 'text-red-500' : 'text-red-500'}`}>*</span>
+                    </label>
+                    <textarea
+                      rows={4}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      onBlur={() => setTouched({ ...touched, message: true })}
+                      disabled={isSubmitting}
+                      className={`${inputClass} border-yellow-400/30 focus:border-yellow-400 resize-none`}
+                      placeholder="Tell us about your requirements..."
+                    />
+                    {touched.message && !formData.message && (
+                      <p className="text-red-500 text-sm mt-1">Message is required</p>
+                    )}
+                  </div>
+
+                  {/* Submit Button */}
+                  <motion.button
+                    type="submit"
+                    disabled={isSubmitting}
+                    whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+                    whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                    className="w-full py-4 rounded-lg bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold text-lg shadow-[0_0_30px_rgba(255,215,0,0.5)] hover:shadow-[0_0_50px_rgba(255,215,0,1)] transition-all flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <motion.div
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                          className="w-5 h-5 border-2 border-black border-t-transparent rounded-full"
+                        />
+                        <span>Sending...</span>
+                      </>
+                    ) : (
+                      <>
+                        <SendIcon className="w-5 h-5" />
+                        <span>Send Inquiry</span>
+                      </>
+                    )}
+                  </motion.button>
+
+                </div>
+              </div>
+            </form>
+          </motion.div>
+
+          {/* Contact Info Right Side */}
+          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-6">
+
+            {/* Hotline */}
+            <motion.a
+              href="tel:+94713885885"
+              whileHover={{ scale: 1.02 }}
+              className="block p-6 rounded-2xl bg-gradient-to-br from-yellow-400/20 to-yellow-600/20 backdrop-blur-xl border border-yellow-400/50 shadow-[0_0_30px_rgba(255,215,0,0.3)] hover:shadow-[0_0_50px_rgba(255,215,0,0.5)] transition-all"
+            >
+              <div className="flex items-center space-x-4">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center shadow-[0_0_20px_rgba(255,215,0,0.6)]">
+                  <PhoneIcon className="w-7 h-7 text-black" />
+                </div>
+                <div>
+                  <p className="text-yellow-400 font-semibold mb-1">24/7 Hotline</p>
+                  <p className="text-2xl font-bold text-white">+94 71 3 885 885</p>
+                </div>
+              </div>
+            </motion.a>
+
+            {/* Location & Hours */}
+            <div className="p-6 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-yellow-400/20 space-y-6">
+              <div className="flex items-start space-x-4">
+                <div className="w-12 h-12 rounded-lg bg-yellow-400/20 flex items-center justify-center">
+                  <MapPinIcon className="w-6 h-6 text-yellow-400" />
+                </div>
+                <div>
+                  <h4 className="text-white font-bold mb-2">Location</h4>
+                  <p className="text-white/60">
+                    278/2 Highlevel Road<br />Pannipitiya,<br />Sri Lanka ,10230
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4">
+                <div className="w-12 h-12 rounded-lg bg-yellow-400/20 flex items-center justify-center">
+                  <ClockIcon className="w-6 h-6 text-yellow-400" />
+                </div>
+                <div>
+                  <h4 className="text-white font-bold mb-2">Opening Hours</h4>
+                  <p className="text-white/60">
+                    Mon - Fri: 8:30 AM - 5:30 PM<br />
+                    Saturday: 8:30 AM - 1:30 PM
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Map */}
+            <div className="relative h-64 rounded-2xl overflow-hidden border border-yellow-400/20">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1980.6952194261798!2d79.95575759839475!3d6.843708800000009!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae251709435de77%3A0xd8388600f217a04d!2sTHE%20TYRE%20STATION%20PVT%20LTD!5e0!3m2!1sen!2slk!4v1764571381348!5m2!1sen!2slk"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Success / Error Popup */}
+      <AnimatePresence>
+        {submitStatus === 'success' && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none"
+          >
+            <div className="bg-green-500/90 text-white font-semibold px-6 py-4 rounded-xl shadow-lg flex items-center space-x-3 backdrop-blur-sm">
+              <CheckCircleIcon className="w-6 h-6" />
+              <span>Inquiry sent successfully! We'll contact you soon.</span>
+            </div>
+          </motion.div>
+        )}
+        {submitStatus === 'error' && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none"
+          >
+            <div className="bg-red-500/90 text-white font-semibold px-6 py-4 rounded-xl shadow-lg flex items-center space-x-3 backdrop-blur-sm">
+              <AlertCircleIcon className="w-6 h-6" />
+              <span>Failed to send inquiry. Please try again or call us.</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}

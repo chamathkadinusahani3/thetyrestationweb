@@ -1,0 +1,44 @@
+# robots.txt for The Tyre Station Pvt Limited
+# https://www.thetyrestation.lk/robots.txt
+
+User-agent: *
+Allow: /
+
+# Disallow admin or private areas (add if needed)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Sitemap location
+Sitemap: https://www.thetyrestation.lk/sitemap.xml
+
+# Crawl delay (optional - helps manage server load)
+Crawl-delay: 1
+
+# Block common bad bots (optional)
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: DotBot
+Crawl-delay: 10
+
+# Allow all good search engine bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
