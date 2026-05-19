@@ -15,7 +15,10 @@ export function Navbar() {
     { name: 'Products', path: '/tyres' },
     { name: 'Services', path: '/services' },
     { name: 'Brands', path: '/brands' },
+<<<<<<< HEAD
     { name: 'Coporate', path: '/coporate' },
+=======
+>>>>>>> b33300f609f18bf38fa4c6ea862f568aa4507419
     { name: 'Events', path: '/events' },
     { name: 'About Us', path: '/about' },
     { name: 'Contact', path: '/contact' },
