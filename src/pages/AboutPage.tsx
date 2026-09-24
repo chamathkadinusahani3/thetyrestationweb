@@ -27,8 +27,8 @@ import member12 from "../assets/team/member12.png";
 import member13 from "../assets/team/member13.png";
 import member14 from "../assets/team/member14.png";
 import member15 from "../assets/team/member15.png";
-import member17 from "../assets/team/member17.png";
-import member18 from "../assets/team/member18.png";
+import member16 from "../assets/team/member16.png";
+
 
 /* Achievements */
 import award1 from "../assets/achievements/award1.png";
@@ -37,21 +37,21 @@ import award2 from "../assets/achievements/award2.png";
 const team = [
   { name: "Lilan Fernando", role: "Managing Director", image: member1 },
   { name: "Dantha De Silva", role: "Chief Executive Officer", image: member2 },
-  { name: "Osman Gunawardane", role: "Sales Manager", image: member3 },
-  { name: "Chinthaka Udayanga", role: "Head of Accounts", image: member4 },
-  { name: "Ruvini Liyanage", role: "Business Coordinator", image: member5 },
-  { name: "Isharaka Perera", role: "Corporate Manager", image: member6 },
+  { name: "Chinthaka Udayanga", role: "Head of Operations", image: member3 },
+  { name: "Ruvini Liyanage", role: "Business Coordinator", image: member4 },
+  { name: "Isharaka Perera", role: "Corporate Manager", image: member5 },
+  { name: "Amith Hemal", role: "Assistant Sales Manager", image: member6 },
   { name: "Shehara Withanage", image: member7 },
-  { name: "Amith Hemal", image: member8 },
-  { name: "Ramodya Hansani", image: member9 },
-  { name: "Ashara Athugala", image: member10 },
-  { name: "B D A Ishara", image: member11 },
-  { name: "Lahiru Priyankara", image: member12 },
-  { name: "Isuru Chamod", image: member13 },
-  { name: "Sandun Sameera", image: member14 },
-  { name: "Chaminda Priyadarshana", image: member15 },
-  { name: "Chamathka Gamage", image: member17 },
-  { name: "Siyasari Sandanayaka", image: member18 },
+  { name: "Ashara Athugala", image: member8 },
+  { name: "B D A Ishara", image: member9 },
+  { name: "Sandun Sameera", image: member10 },
+  { name: "Chamathka Gamage", image: member11 },
+  { name: "Siyasari Sandanayaka", image: member12 },
+  { name: "Shabeek Ahamed", image: member13 },
+  { name: "Dinuja De Silva", image: member14 },
+  { name: "Shashila Udari", image: member15 },
+  { name: "Amila Gihan", image: member16 },
+
 ];
 
 export function AboutPage() {
@@ -156,15 +156,23 @@ export function AboutPage() {
             itemProp="description"
           >
             <p className="text-white/80 leading-relaxed text-lg mb-4">
-              Founded in 1983 under <strong>Anura Tyres</strong> and re-established as
-              <strong> The Tyre Station (Pvt) Ltd</strong> in 2017, we are Sri Lanka's leading 
-              tyre import, export, and wholesale distribution company.
-            </p>
-            <p className="text-white/80 leading-relaxed text-lg">
-              With <strong>42+ years of industry excellence</strong>, we serve customers,
-              dealers, government institutions, and corporate fleets with premium global tyre brands, 
-              competitive wholesale pricing, and reliable island-wide distribution.
-            </p>
+		  Founded in 1983, <strong>Anura Tyres (Pvt) Ltd</strong> has built over
+		  <strong> 43 years of experience</strong> in Sri Lanka’s tyre retail industry.
+		</p>
+
+	<p className="text-white/80 leading-relaxed text-lg mb-4">
+	  In 2017, we expanded our operations into tyre importing and distribution
+	  with the establishment of <strong>The Tyre Station (Pvt) Ltd</strong>.
+	  Today, with <strong>9 years of industry experience</strong>, The Tyre Station
+	  has grown into a trusted tyre importer and distributor, serving a wide
+	  network of dealers across Sri Lanka.
+	</p>
+
+	<p className="text-white/80 leading-relaxed text-lg">
+	  With a strong foundation built on decades of industry expertise, we remain
+	  committed to delivering quality tyres, reliable service, and lasting
+	  partnerships with our dealers islandwide.
+	</p>
           </motion.div>
         </div>
       </section>
@@ -298,7 +306,7 @@ export function AboutPage() {
             </span>
           </motion.h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 mb-8">
             {team.slice(1).map((member, index) => (
               <motion.div
                 key={index}
@@ -306,23 +314,33 @@ export function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.05 }}
-                className="p-6 bg-gradient-to-br from-white/10 to-white/5 
-                           backdrop-blur-xl border border-yellow-400/20 rounded-2xl"
+                className="group overflow-hidden rounded-2xl bg-white/5 border border-white/10
+                           shadow-xl shadow-black/40 transition-all duration-500
+                           hover:-translate-y-1.5 hover:border-white/20 hover:shadow-2xl"
                 itemScope
                 itemType="https://schema.org/Person"
               >
-                <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 
-                                border-2 border-yellow-400/40 shadow-lg">
+                <div className="relative aspect-[4/5] overflow-hidden
+                                bg-[radial-gradient(ellipse_at_top,_#fef08a_0%,_#facc15_55%,_#ca8a04_100%)]">
                   <img
                     src={member.image}
                     alt={`${member.name} - ${member.role || 'Team Member'} at The Tyre Station`}
-                    className="w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover object-top
+                               transition-transform duration-700 ease-out group-hover:scale-105"
+                    loading="lazy"
                     itemProp="image"
                   />
+                  <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-black/30 to-transparent" />
                 </div>
 
-                <h3 className="font-semibold text-white" itemProp="name">{member.name}</h3>
-                {member.role && <p className="text-white/60 text-sm" itemProp="jobTitle">{member.role}</p>}
+                <div className="px-4 py-4">
+                  <h3 className="font-semibold text-white tracking-wide" itemProp="name">{member.name}</h3>
+                  {member.role && (
+                    <p className="mt-1 text-white/60 text-xs uppercase tracking-[0.15em]" itemProp="jobTitle">
+                      {member.role}
+                    </p>
+                  )}
+                </div>
               </motion.div>
             ))}
           </div>
